@@ -21,13 +21,12 @@ class ExampleStackViewController: StackController {
         let header = loadControllerWithIdentifier("Page")
         let corgi1 = loadControllerWithIdentifier("Collection")
         let corgi2 = loadControllerWithIdentifier("Collection")
-        let corgi3 = loadControllerWithIdentifier("Collection")
         let footer = loadControllerWithIdentifier("Table")
         
         view.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
         
         minimumSpacing = 1.0 / Float(UIScreen.mainScreen().scale)
         
-        viewControllers = [header, corgi1, corgi2, corgi3, footer]
+        viewControllers = [header, corgi1, corgi2, footer]
     }
 }

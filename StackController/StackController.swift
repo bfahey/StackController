@@ -1,6 +1,5 @@
 //
 //  StackController.swift
-//  StackControllerExample
 //
 //  Created by Blaine Fahey on 3/20/16.
 //  Copyright © 2016 Blaine Fahey. All rights reserved.
@@ -125,7 +124,7 @@ public class StackController: UIViewController {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
     }
     
-    // MARK: Private
+    // MARK: - Private
     
     private func addViewController(viewController: UIViewController) {
         addChildViewController(viewController)
