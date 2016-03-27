@@ -50,6 +50,10 @@ class CollectionViewController: UICollectionViewController {
         
         return cell
     }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        HelloImCallie.openInSafari()
+    }
 }
 
 class CollectionViewCell: UICollectionViewCell {
@@ -60,5 +64,11 @@ class CollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         
         imageView.layer.cornerRadius = 15.0
+    }
+    
+    override var highlighted: Bool {
+        didSet {
+            imageView.alpha = highlighted ? 0.7 : 1.0;
+        }
     }
 }

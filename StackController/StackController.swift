@@ -26,12 +26,15 @@ public class StackController: UIViewController {
         willSet {
             viewControllers.forEach { removeViewController($0) }
             heightConstraints.removeAll()
+            didUpdateConstraints = false
         }
         didSet {
             viewControllers.forEach { addViewController($0) }
             view.setNeedsUpdateConstraints()
         }
     }
+    
+    // MARK: - View lifecycle
     
     public override func loadView() {
         super.loadView()

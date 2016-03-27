@@ -6,7 +6,7 @@
 //  Copyright © 2016 Blaine Fahey. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct HelloImCallie {
     static let images = [
@@ -20,4 +20,8 @@ struct HelloImCallie {
         "https://instagram.fsnc1-1.fna.fbcdn.net/t51.2885-15/e15/11328350_1640070526252943_162143740_n.jpg?ig_cache_key=MTAwMjQ5NzkwODc2Nzk4ODQzMw%3D%3D.2",
         "https://instagram.fsnc1-1.fna.fbcdn.net/t51.2885-15/s640x640/sh0.08/e35/12628006_1042991459077553_1154547737_n.jpg?ig_cache_key=MTE4MjMzNzE3NTI0NDUxMjIwNQ%3D%3D.2"
     ]
+    
+    static func openInSafari() {
+        UIApplication.sharedApplication().openURL(NSURL(string: "https://instagram.com/helloimcallie")!)
+    }
 }
