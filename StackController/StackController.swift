@@ -14,14 +14,6 @@ public class StackController: UIViewController {
     
     public let scrollView = UIScrollView()
     
-    public var layoutAnimationDuration: NSTimeInterval = 0.2
-
-    @IBInspectable public var minimumSpacing: Float = 0.0
-
-    var heightConstraints = [NSLayoutConstraint]()
-    
-    var didUpdateConstraints = false
-    
     public var viewControllers = [UIViewController]() {
         willSet {
             viewControllers.forEach { removeViewController($0) }
@@ -34,44 +26,54 @@ public class StackController: UIViewController {
         }
     }
     
+    public var layoutAnimationDuration: NSTimeInterval = 0.2
+    
+    @IBInspectable public var minimumSpacing: Float = 0.0
+    
+    private var heightConstraints = [NSLayoutConstraint]()
+    
+    private var didUpdateConstraints = false
+    
     // MARK: - View lifecycle
     
     public override func loadView() {
         super.loadView()
         
         scrollView.alwaysBounceVertical = true
+        scrollView.directionalLockEnabled = true
         scrollView.showsVerticalScrollIndicator = true
         scrollView.showsHorizontalScrollIndicator = false
-        scrollView.directionalLockEnabled = true
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(scrollView)
-        
-        if #available(iOS 9.0, *) {
-            view.topAnchor.constraintEqualToAnchor(scrollView.topAnchor).active = true
-            view.bottomAnchor.constraintEqualToAnchor(scrollView.bottomAnchor).active = true
-            view.leadingAnchor.constraintEqualToAnchor(scrollView.leadingAnchor).active = true
-            view.trailingAnchor.constraintEqualToAnchor(scrollView.trailingAnchor).active = true
-            
-        } else {
-            let views = ["scrollView": scrollView]
-            
-            view.addConstraints(
-                NSLayoutConstraint.constraintsWithVisualFormat("H:|[scrollView]|",
-                    options: NSLayoutFormatOptions(),
-                    metrics: nil,
-                    views: views))
-            
-            view.addConstraints(
-                NSLayoutConstraint.constraintsWithVisualFormat("V:|[scrollView]|",
-                    options: NSLayoutFormatOptions(),
-                    metrics: nil,
-                    views: views))
-        }
     }
 
     public override func updateViewConstraints() {
         if didUpdateConstraints == false {
+            
+            if scrollView.constraints.isEmpty == true {
+                if #available(iOS 9.0, *) {
+                    view.topAnchor.constraintEqualToAnchor(scrollView.topAnchor).active = true
+                    view.bottomAnchor.constraintEqualToAnchor(scrollView.bottomAnchor).active = true
+                    view.leadingAnchor.constraintEqualToAnchor(scrollView.leadingAnchor).active = true
+                    view.trailingAnchor.constraintEqualToAnchor(scrollView.trailingAnchor).active = true
+                    
+                } else {
+                    let views = ["scrollView": scrollView]
+                    
+                    view.addConstraints(
+                        NSLayoutConstraint.constraintsWithVisualFormat("H:|[scrollView]|",
+                            options: NSLayoutFormatOptions(),
+                            metrics: nil,
+                            views: views))
+                    
+                    view.addConstraints(
+                        NSLayoutConstraint.constraintsWithVisualFormat("V:|[scrollView]|",
+                            options: NSLayoutFormatOptions(),
+                            metrics: nil,
+                            views: views))
+                }
+            }
             
             var previousView: UIView?
         

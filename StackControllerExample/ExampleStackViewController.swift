@@ -24,7 +24,7 @@ class ExampleStackViewController: StackController {
         let corgi3 = loadControllerWithIdentifier("Collection")
         let footer = loadControllerWithIdentifier("Table")
         
-        view.backgroundColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1.0)
+        view.backgroundColor = UIColor(red: 247.0/255.0, green: 247.0/255.0, blue: 247.0/255.0, alpha: 1.0)
         
         minimumSpacing = 1.0 / Float(UIScreen.mainScreen().scale)
         

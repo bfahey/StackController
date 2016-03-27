@@ -219,7 +219,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="600"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="78j-RG-NyU" firstAttribute="top" secondItem="lPJ-4N-s3n" secondAttribute="bottom" id="0X7-2d-u11"/>
                             <constraint firstItem="lPJ-4N-s3n" firstAttribute="leading" secondItem="gOB-dv-c3y" secondAttribute="leading" id="6B0-qM-loH"/>
