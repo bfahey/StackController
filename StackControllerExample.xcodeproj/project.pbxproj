@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9541D1EF1CA7989C00CA6B10 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9541D1EE1CA7989C00CA6B10 /* PageViewController.swift */; };
+		9541D1F11CA7B9A800CA6B10 /* Corgi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9541D1F01CA7B9A800CA6B10 /* Corgi.swift */; };
+		9541D1F31CA7C60400CA6B10 /* UIImageView+ImageFromURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9541D1F21CA7C60400CA6B10 /* UIImageView+ImageFromURL.swift */; };
 		95B125A81C9F510200151A6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B125A71C9F510200151A6D /* AppDelegate.swift */; };
-		95B125AA1C9F510200151A6D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B125A91C9F510200151A6D /* ViewController.swift */; };
+		95B125AA1C9F510200151A6D /* ExampleStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B125A91C9F510200151A6D /* ExampleStackViewController.swift */; };
 		95B125AD1C9F510200151A6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95B125AB1C9F510200151A6D /* Main.storyboard */; };
 		95B125AF1C9F510200151A6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95B125AE1C9F510200151A6D /* Assets.xcassets */; };
 		95B125B21C9F510200151A6D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95B125B01C9F510200151A6D /* LaunchScreen.storyboard */; };
@@ -62,9 +65,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9541D1EE1CA7989C00CA6B10 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		9541D1F01CA7B9A800CA6B10 /* Corgi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Corgi.swift; sourceTree = "<group>"; };
+		9541D1F21CA7C60400CA6B10 /* UIImageView+ImageFromURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+ImageFromURL.swift"; sourceTree = "<group>"; };
 		95B125A41C9F510200151A6D /* StackControllerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StackControllerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95B125A71C9F510200151A6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		95B125A91C9F510200151A6D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		95B125A91C9F510200151A6D /* ExampleStackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleStackViewController.swift; sourceTree = "<group>"; };
 		95B125AC1C9F510200151A6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		95B125AE1C9F510200151A6D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		95B125B11C9F510200151A6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -108,6 +114,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9541D1F41CA7D58D00CA6B10 /* Child Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9541D1EE1CA7989C00CA6B10 /* PageViewController.swift */,
+				95B125E21C9F88C100151A6D /* ImageViewController.swift */,
+				95B125E81C9F9CFF00151A6D /* CollectionViewController.swift */,
+				95B125DE1C9F54E500151A6D /* TableViewController.swift */,
+			);
+			name = "Child Controllers";
+			sourceTree = "<group>";
+		};
+		9541D1F51CA7D5A300CA6B10 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				9541D1F01CA7B9A800CA6B10 /* Corgi.swift */,
+				9541D1F21CA7C60400CA6B10 /* UIImageView+ImageFromURL.swift */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
 		95B1259B1C9F510200151A6D = {
 			isa = PBXGroup;
 			children = (
@@ -132,10 +158,9 @@
 			isa = PBXGroup;
 			children = (
 				95B125A71C9F510200151A6D /* AppDelegate.swift */,
-				95B125A91C9F510200151A6D /* ViewController.swift */,
-				95B125DE1C9F54E500151A6D /* TableViewController.swift */,
-				95B125E81C9F9CFF00151A6D /* CollectionViewController.swift */,
-				95B125E21C9F88C100151A6D /* ImageViewController.swift */,
+				95B125A91C9F510200151A6D /* ExampleStackViewController.swift */,
+				9541D1F41CA7D58D00CA6B10 /* Child Controllers */,
+				9541D1F51CA7D5A300CA6B10 /* Utility */,
 				95B125AB1C9F510200151A6D /* Main.storyboard */,
 				95B125AE1C9F510200151A6D /* Assets.xcassets */,
 				95B125B01C9F510200151A6D /* LaunchScreen.storyboard */,
@@ -307,9 +332,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95B125AA1C9F510200151A6D /* ViewController.swift in Sources */,
+				95B125AA1C9F510200151A6D /* ExampleStackViewController.swift in Sources */,
 				95B125DF1C9F54E500151A6D /* TableViewController.swift in Sources */,
+				9541D1F31CA7C60400CA6B10 /* UIImageView+ImageFromURL.swift in Sources */,
 				95B125E31C9F88C100151A6D /* ImageViewController.swift in Sources */,
+				9541D1EF1CA7989C00CA6B10 /* PageViewController.swift in Sources */,
+				9541D1F11CA7B9A800CA6B10 /* Corgi.swift in Sources */,
 				95B125A81C9F510200151A6D /* AppDelegate.swift in Sources */,
 				95B125E91C9F9CFF00151A6D /* CollectionViewController.swift in Sources */,
 			);
@@ -560,6 +588,7 @@
 				95B125B81C9F510200151A6D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		95B125D51C9F510B00151A6D /* Build configuration list for PBXNativeTarget "StackController" */ = {
 			isa = XCConfigurationList;
@@ -568,6 +597,7 @@
 				95B125D71C9F510B00151A6D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		95B125D91C9F510B00151A6D /* Build configuration list for PBXNativeTarget "StackControllerTests" */ = {
 			isa = XCConfigurationList;
@@ -576,6 +606,7 @@
 				95B125DB1C9F510B00151A6D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

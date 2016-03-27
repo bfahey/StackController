@@ -8,26 +8,17 @@
 
 import UIKit
 
-let corgi = "https://instagram.fsnc1-1.fna.fbcdn.net/t51.2885-15/e35/11372127_527195077432544_1355637360_n.jpg?ig_cache_key=MTAzMDc5NTU5NTAxMTMzMjg2OA%3D%3D.2"
-
 class ImageViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!
+    
+    var imageURLString: String?
+    var pageIndex: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = NSURL(string: corgi)!
-        
-        NSURLSession.sharedSession().dataTaskWithURL(url) { [unowned self] data, response, error in
-            guard let data = data else { return }
-            
-            let image = UIImage(data: data)
-            
-            dispatch_async(dispatch_get_main_queue(), { [unowned self] in
-                self.imageView.image = image
-                
-                self.preferredContentSize = CGSize(width: 0, height: CGRectGetWidth(self.imageView.frame))
-            })
-        }.resume()
+        if let urlString = imageURLString, let url = NSURL(string: urlString) {
+            imageView.imageFromURL(url, completion: nil)
+        }
     }
 }

@@ -10,11 +10,20 @@ import UIKit
 
 class CollectionViewController: UICollectionViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        collectionView?.reloadData()
+    private func updateContentSize() {
         preferredContentSize = collectionView!.contentSize
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        updateContentSize()
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animateAlongsideTransition(nil) { [unowned self] context in
+            self.updateContentSize()
+        }
     }
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -22,12 +31,22 @@ class CollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 18
+        return HelloImCallie.images.count
+    }
+    
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "Header", forIndexPath: indexPath)
+        return header
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! CollectionViewCell
-        cell.label.text = "\(indexPath.row)"
+        
+        cell.label.text = "Corgi #\(indexPath.row+1)"
+        
+        if let url = NSURL(string: HelloImCallie.images[indexPath.row]) {
+            cell.imageView.imageFromURL(url, completion: nil)
+        }
         
         return cell
     }
@@ -35,4 +54,11 @@ class CollectionViewController: UICollectionViewController {
 
 class CollectionViewCell: UICollectionViewCell {
     @IBOutlet var label: UILabel!
+    @IBOutlet var imageView: UIImageView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        imageView.layer.cornerRadius = 15.0
+    }
 }

@@ -10,10 +10,20 @@ import UIKit
 
 class TableViewController: UITableViewController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    private func updateContentSize() {
         preferredContentSize = tableView.rectForSection(0).size
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        updateContentSize()
+    }
+
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animateAlongsideTransition(nil) { [unowned self] context in
+            self.updateContentSize()
+        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

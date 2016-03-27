@@ -14,7 +14,9 @@ public class StackController: UIViewController {
     
     public let scrollView = UIScrollView()
     
-    var constraints = [NSLayoutConstraint]()
+    public var layoutAnimationDuration: NSTimeInterval = 0.2
+
+    @IBInspectable public var minimumSpacing: Float = 0.0
 
     var heightConstraints = [NSLayoutConstraint]()
     
@@ -22,7 +24,8 @@ public class StackController: UIViewController {
     
     public var viewControllers = [UIViewController]() {
         willSet {
-            removeAllViewControllers()
+            viewControllers.forEach { removeViewController($0) }
+            heightConstraints.removeAll()
         }
         didSet {
             viewControllers.forEach { addViewController($0) }
@@ -37,7 +40,6 @@ public class StackController: UIViewController {
         scrollView.showsVerticalScrollIndicator = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.directionalLockEnabled = true
-        scrollView.backgroundColor = .whiteColor()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(scrollView)
@@ -70,6 +72,8 @@ public class StackController: UIViewController {
             
             var previousView: UIView?
         
+            heightConstraints.removeAll()
+            
             viewControllers.forEach { controller in
                 let childView = controller.view
                 
@@ -85,13 +89,17 @@ public class StackController: UIViewController {
                 
                 if let previousView = previousView {
                     // Pin to previous view.
-                    scrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[previous]-[child]",
-                        options: NSLayoutFormatOptions(), metrics: nil, views: ["child": childView, "previous": previousView]))
+                    scrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[previous]-spacing-[child]",
+                        options: NSLayoutFormatOptions(),
+                        metrics: ["spacing": NSNumber(float: minimumSpacing)],
+                        views: ["child": childView, "previous": previousView]))
                     
                 } else {
                     // Pin first view to top.
                     scrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[child]",
-                        options: NSLayoutFormatOptions(), metrics: nil, views: ["child": childView]))
+                        options: NSLayoutFormatOptions(),
+                        metrics: nil,
+                        views: ["child": childView]))
                 }
                 
                 previousView = childView
@@ -134,17 +142,8 @@ public class StackController: UIViewController {
         viewController.removeFromParentViewController()
     }
     
-    private func removeAllViewControllers() {
-        viewControllers.forEach { removeViewController($0) }
-    }
-    
     // MARK: - UIContentContainer
     
-//    public override func systemLayoutFittingSizeDidChangeForChildContentContainer(container: UIContentContainer) {
-//        super.systemLayoutFittingSizeDidChangeForChildContentContainer(container)
-//        print("systemLayoutFitting \(container)")
-//    }
-//    
     public override func sizeForChildContentContainer(container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
         super.sizeForChildContentContainer(container, withParentContainerSize: parentSize)
         
@@ -153,7 +152,6 @@ public class StackController: UIViewController {
     
     public override func preferredContentSizeDidChangeForChildContentContainer(container: UIContentContainer) {
         super.preferredContentSizeDidChangeForChildContentContainer(container)
-        print("preferredContent \(container)")
 
         if let controller = container as? UIViewController, let i = viewControllers.indexOf(controller) {
             guard i < heightConstraints.count else { return }
@@ -163,26 +161,11 @@ public class StackController: UIViewController {
             // Use the controller's `preferredContentSize` height value to set as our constant.
             heightConstraint.constant = container.preferredContentSize.height
             
-            print("update \(controller)")
-            
             view.setNeedsUpdateConstraints()
             
-            UIView.animateWithDuration(0.2, animations: {
+            UIView.animateWithDuration(layoutAnimationDuration, animations: {
                 self.view.layoutIfNeeded()
             })
         }
-    }
-}
-
-extension UITableView {
-    public override var contentSize: CGSize {
-        didSet {
-            self.invalidateIntrinsicContentSize()
-        }
-    }
-    
-    public override func intrinsicContentSize() -> CGSize {
-        self.layoutIfNeeded()
-        return CGSizeMake(UIViewNoIntrinsicMetric, contentSize.height)
     }
 }
