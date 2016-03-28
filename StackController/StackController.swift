@@ -4,16 +4,17 @@
 //  Created by Blaine Fahey on 3/20/16.
 //  Copyright © 2016 Blaine Fahey. All rights reserved.
 //
+//  Before you change anything, read this: https://developer.apple.com/library/ios/technotes/tn2154/_index.html
 
 import UIKit
 
-// Before you change anything, read this: https://developer.apple.com/library/ios/technotes/tn2154/_index.html
-
-@objc(BFStackController)
-public class StackController: UIViewController {
+/// A vertically scrolling container view controller.
+@objc public class StackController: UIViewController {
     
+    /// The scroll view containing all the child views.
     public let scrollView = UIScrollView()
     
+    /// The child view controllers to be stacked vertically.
     public var viewControllers = [UIViewController]() {
         willSet {
             viewControllers.forEach { removeViewController($0) }
@@ -26,8 +27,10 @@ public class StackController: UIViewController {
         }
     }
     
+    /// The layout animation duration used when a child view controller's `preferredContentSize` is changed.
     public var layoutAnimationDuration: NSTimeInterval = 0.2
     
+    /// The minimum vertical spacing added between each child view.
     @IBInspectable public var minimumSpacing: Float = 0.0
     
     private var heightConstraints = [NSLayoutConstraint]()
@@ -75,46 +78,7 @@ public class StackController: UIViewController {
                 }
             }
             
-            var previousView: UIView?
-        
-            heightConstraints.removeAll()
-            
-            viewControllers.forEach { controller in
-                let childView = controller.view
-                
-                view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[view(==child)]",
-                    options: NSLayoutFormatOptions(), metrics: nil, views: ["child": childView, "view": view]))
-                
-                let heightConstraint = NSLayoutConstraint(item: childView, attribute: .Height, relatedBy: .Equal,
-                    toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: CGRectGetHeight(childView.frame))
-
-                childView.addConstraint(heightConstraint)
-                
-                heightConstraints.append(heightConstraint)
-                
-                if let previousView = previousView {
-                    // Pin to previous view.
-                    scrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[previous]-spacing-[child]",
-                        options: NSLayoutFormatOptions(),
-                        metrics: ["spacing": NSNumber(float: minimumSpacing)],
-                        views: ["child": childView, "previous": previousView]))
-                    
-                } else {
-                    // Pin first view to top.
-                    scrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[child]",
-                        options: NSLayoutFormatOptions(),
-                        metrics: nil,
-                        views: ["child": childView]))
-                }
-                
-                previousView = childView
-            }
-            
-            if let previousView = previousView {
-                // Finally, pin to the bottom of the scroll view to determine content size.
-                scrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[previous]|",
-                    options: NSLayoutFormatOptions(), metrics: nil, views: ["previous": previousView]))
-            }
+            addChildViewConstraints()
             
             didUpdateConstraints = true
         }
@@ -126,6 +90,49 @@ public class StackController: UIViewController {
     }
     
     // MARK: - Private
+    
+    private func addChildViewConstraints() {
+        var previousView: UIView?
+        
+        heightConstraints.removeAll()
+        
+        viewControllers.forEach { controller in
+            let childView = controller.view
+            
+            view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[view(==child)]",
+                options: NSLayoutFormatOptions(), metrics: nil, views: ["child": childView, "view": view]))
+            
+            let heightConstraint = NSLayoutConstraint(item: childView, attribute: .Height, relatedBy: .Equal,
+                toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: CGRectGetHeight(childView.frame))
+            
+            childView.addConstraint(heightConstraint)
+            
+            heightConstraints.append(heightConstraint)
+            
+            if let previousView = previousView {
+                // Pin to previous view.
+                scrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[previous]-spacing-[child]",
+                    options: NSLayoutFormatOptions(),
+                    metrics: ["spacing": NSNumber(float: minimumSpacing)],
+                    views: ["child": childView, "previous": previousView]))
+                
+            } else {
+                // Pin first view to top.
+                scrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[child]",
+                    options: NSLayoutFormatOptions(),
+                    metrics: nil,
+                    views: ["child": childView]))
+            }
+            
+            previousView = childView
+        }
+        
+        if let previousView = previousView {
+            // Finally, pin to the bottom of the scroll view to determine content size.
+            scrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[previous]|",
+                options: NSLayoutFormatOptions(), metrics: nil, views: ["previous": previousView]))
+        }
+    }
     
     private func addViewController(viewController: UIViewController) {
         addChildViewController(viewController)
