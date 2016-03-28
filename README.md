@@ -12,9 +12,9 @@ The only requirement when using a stack controller is that you keep your view co
 
 ```swift
 override func viewDidAppear(animated: Bool) {
-super.viewDidAppear(animated)
+    super.viewDidAppear(animated)
 
-preferredContentSize = tableView.rectForSection(0).size
+    preferredContentSize = tableView.rectForSection(0).size
 }
 ```
 
@@ -26,22 +26,21 @@ A stack controller will immediately respond to any changes in its child view con
 
 ```swift
 private func updateContentSize() {
-preferredContentSize = collectionView!.contentSize
+    preferredContentSize = collectionView!.contentSize
 }
 
 override func viewDidAppear(animated: Bool) {
-super.viewDidAppear(animated)
+    super.viewDidAppear(animated)
 
-updateContentSize()
+    updateContentSize()
 }
 
 override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-coordinator.animateAlongsideTransition(nil) { [unowned self] context in
-self.updateContentSize()
-}
+    coordinator.animateAlongsideTransition(nil) { [unowned self] context in
+        self.updateContentSize()
+    }
 }
 ```
-
 
 ## Known Issues
 When using a `UITableView` or `UICollectionView` in a stack controller they will not benefit from cell reuse. The stack controller's scroll view does not forward its content offset to any subviews. It simply "wastes" memory by drawing all the cells so be sure to limit your cell count and monitor memory usage. For more information, read Ole Begemann's post, [*Scroll Views Inside Scroll Views*](http://oleb.net/blog/2014/05/scrollviews-inside-scrollviews/).
@@ -50,4 +49,4 @@ When using a `UITableView` or `UICollectionView` in a stack controller they will
 
 To integrate StackController into your Xcode project using [Carthage](https://github.com/Carthage/Carthage), add it to your `Cartfile`:
 
-github "bfahey/StackController"
+    github "bfahey/StackController"
