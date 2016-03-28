@@ -9,6 +9,7 @@ import UIKit
 
 // Before you change anything, read this: https://developer.apple.com/library/ios/technotes/tn2154/_index.html
 
+@objc(BFStackController)
 public class StackController: UIViewController {
     
     public let scrollView = UIScrollView()
